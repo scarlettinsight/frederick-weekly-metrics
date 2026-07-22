@@ -94,7 +94,7 @@ const money=v=>"$"+Math.round(v).toLocaleString();
 const pct=v=>v==null?"—":(v*100).toFixed(0)+"%";
 const fmt_ps=(v,i)=>i===0?money(v):pct(v);
 
-function hbars(elid,rows,fmtFn,maxv){
+function hbars(elid,rows,fmtFn,maxv){ if(!el(elid))return;
   const max=maxv||Math.max(...rows.map(r=>r.v||0),0.01);
   el(elid).innerHTML=rows.map(r=>{
     const w=Math.round((r.v||0)/max*100);
@@ -148,7 +148,7 @@ ${[["Net sales",money(t.net)],["Orders",t.orders.toLocaleString()],["Guests",t.g
 </div>
 <div class="two"><div class="card"><h3 class="blk" style="margin-top:0">Revenue by category</h3><div id="ov_cat"></div></div>
 <div class="card"><h3 class="blk" style="margin-top:0">Revenue by center</h3><div id="ov_rc"></div></div></div>
-<div class="card"><h3 class="blk" style="margin-top:0">Headline findings</h3><ul class="di"><li>Wine is <b>18.3% of net sales</b>; dinner avg check $136 vs lunch $86.</li><li>Clean average check <b>$113.38</b> per order across 29,380 orders.</li><li>À la carte pasta runs <b>2.6% of checks</b>; entrées <b>63.9%</b> — an entrée-forward menu.</li><li>Wine attaches on <b>52.8% of checks</b> (glass 40.3%, flight 15.4%).</li><li><b>74.9% of tables take no dessert</b> — the upsell opening.</li><li>Party economics scale hard: 2-tops $96 → 4-tops $143 → larger parties higher still.</li></ul></div>
+<div class="card"><h3 class="blk" style="margin-top:0">Headline findings</h3><ul class="di"><li><b>Food is 64.9% of net sales</b>; dinner avg check $136 vs lunch $86.</li><li>Clean average check <b>$113.38</b> per order across 29,380 orders; 6.14 items/check.</li><li>À la carte pasta runs <b>2.6% of checks</b>; entrées <b>63.9%</b> — an entrée-forward menu.</li><li>Wine attaches on <b>52.8% of checks</b> (glass 40.3%, flight 15.4%).</li><li><b>74.9% of tables take no dessert</b> — the upsell opening.</li><li>Party economics scale hard: 2-tops $96 → 4-tops $143 → larger parties higher still.</li></ul></div>
 <div class="note"><b>Check basis:</b> ${m.clean_checks.toLocaleString()} dine-in checks (${m.staff_excl.toLocaleString()} staff/employee-discount + ${m.retail_excl.toLocaleString()} retail/gift excluded). A to-go bottle on a dine-in check is always retained. Clean avg check $${m.clean_avg_check} vs raw $${m.raw_avg_check}.</div>`;
 el('pane_ov').innerHTML=h;
 const cats=D.cat_order;
